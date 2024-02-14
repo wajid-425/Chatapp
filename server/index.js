@@ -3,7 +3,41 @@ const app = express();
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
+
+
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+
+
 app.use(cors());
+
+
+
+
+// Mongodb 
+
+
+app.use(bodyParser.json());
+
+const userRoutes = require("./routes/userRoutes");
+app.use("/api/user", userRoutes);
+
+mongoose.connect("mongodb://localhost:27017/mydb", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log("MongoDB connected"))
+.catch(err => console.error(err));
+
+
+
+
+
+
+
+
+
+
 
 const server = http.createServer(app);
 
@@ -30,6 +64,13 @@ io.on("connection", (socket) => {
     console.log("User Disconnected", socket.id);
   });
 });
+
+
+
+
+
+
+
 
 server.listen(3001, () => {
   console.log("SERVER RUNNING");

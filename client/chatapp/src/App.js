@@ -1,23 +1,26 @@
 import "./App.css";
-import io from "socket.io-client";
-import { useState } from "react";
-import Chat from "./Chat";
+import My_ChatWindow from "./chatwindow";
+import MyForm from "./encrypt_decrypt";
+// import io from "socket.io-client";
+// import { useState } from "react";
+// import Chat from "./Chat";
 import My_login from "./login";
 import My_registration from "./register";
 
-const socket = io.connect("http://localhost:3001");
+
+// const socket = io.connect("http://localhost:3001");
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
-  const [showChat, setShowChat] = useState(false);
+  // const [username, setUsername] = useState("");
+  // const [room, setRoom] = useState("");
+  // const [showChat, setShowChat] = useState(false);
 
-  const joinRoom = () => {
-    if (username !== "" && room !== "") {
-      socket.emit("join_room", room);
-      setShowChat(true);
-    }
-  };
+  // const joinRoom = () => {
+  //   if (username !== "" && room !== "") {
+  //     socket.emit("join_room", room);
+  //     setShowChat(true);
+  //   }
+  // };
 
   return (
     // <div className="App">
@@ -48,10 +51,15 @@ function App() {
 
     /// --------------------- Login Form ---------------------------------//
    
-   <div> 
-    <My_login/>
+   <div className="my_home"> 
+    <My_login/> 
 
-    <My_registration/>
+  {/* <My_registration/> */}
+
+{/* <MyForm/> */}
+
+
+{/* <My_ChatWindow/> */}
 
     </div>
 
