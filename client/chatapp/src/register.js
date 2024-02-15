@@ -6,6 +6,7 @@ import axios from "axios";
 
 import bcrypt from "bcryptjs";
 
+import { Link, useHistory } from "react-router-dom";
 
 
 export default function My_registration(){
@@ -14,6 +15,10 @@ const [username, setUsername] = useState("");
 const [useremail, setUseremail] = useState("");
 const [password,setPassword] = useState("");
 const [confirmpassword, setConfirmpassword] = useState("");
+
+
+const history = useHistory();
+
 
 
 const handleSubmit = async () => {
@@ -27,6 +32,8 @@ else{
 
     const hashedPassword = await bcrypt.hash(password, 7);
 
+    console.log(hashedPassword);
+
       const response = await axios.post("http://localhost:3001/api/user/register", {
           username,
           useremail,
@@ -37,11 +44,18 @@ else{
 
       console.log(hashedPassword)
 
+      // history.push("/login");
+
     
-      setUsername("");
-      setUseremail("");
-      setPassword("");
-      setConfirmpassword("");
+      if (response.status === 200) {
+        history.push("/login");
+        setUsername("");
+        setUseremail("");
+        setPassword("");
+        setConfirmpassword("");
+      }
+
+      
   } catch (error) {
       console.error("Error registering user:", error);
   }
@@ -59,7 +73,7 @@ Registration Form
 
 <div >
 <label className="font-bold text-lg	"> Enter Your Username: &nbsp; </label>
-<input type="text"  required className="w-64 p-2 ml-8 rounded border-gray-200 border-2 border-black " placeholder="Enter userName here"  
+<input type="text"  required className="w-64 p-2 ml-8 rounded border-gray-200 border-2  " placeholder="Enter userName here"  
    onChange={(event) => {
                setUsername(event.target.value);
             }} />
@@ -67,7 +81,7 @@ Registration Form
 
 <div className="mt-8">
 <label className="font-bold text-lg	"> Enter Your email: &nbsp; </label>
-<input type="email"  required className="w-64 p-2 ml-8 rounded border-gray-200 border-2 border-black " placeholder="Enter Email here"
+<input type="email"  required className="w-64 p-2 ml-8 rounded border-gray-200 border-2  " placeholder="Enter Email here"
 onChange={(event) => {
   setUseremail(event.target.value);
 }}
@@ -78,7 +92,7 @@ onChange={(event) => {
 
 <div className="mt-8 text-center"> 
 <label className="font-bold text-lg	"> Enter Password: &nbsp;</label>
-<input type="password"  className="w-64 ml-12 p-2 rounded border-gray-200 border-2 border-black " placeholder="Enter Password here" 
+<input type="password"  className="w-64 ml-12 p-2 rounded border-gray-200 border-2 " placeholder="Enter Password here" 
 onChange={(event) => {
   setPassword(event.target.value);
 }}
@@ -87,7 +101,7 @@ onChange={(event) => {
 
 <div className="mt-8 text-center"> 
 <label className="font-bold text-lg	"> Confirm Password: &nbsp;</label>
-<input type="password"  className="w-64 ml-12 p-2 rounded border-gray-200 border-2 border-black " placeholder="Enter Password here"
+<input type="password"  className="w-64 ml-12 p-2 rounded border-gray-200 border-2  " placeholder="Enter Password here"
 onChange={(event) => {
   setConfirmpassword(event.target.value);
 }}
@@ -95,7 +109,8 @@ onChange={(event) => {
 </div>
 
 <button type="submit"  className="mt-16 bg-blue-600 text-white  border-2 border-black/30 font-bold p-4 rounded-lg " > Register Now</button>
-  
+  {/* <a  className="underline text-blue-800 ml-12 tracking-wider test-lg"> Already a Member</a> */}
+  <Link to="/login" className="underline text-blue-800 ml-12 tracking-wider test-lg">Already a Member</Link>
 {/* <p>{username}</p>
 <p>{useremail}</p>
 <p>{password}</p> */}

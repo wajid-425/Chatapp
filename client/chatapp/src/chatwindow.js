@@ -2,9 +2,9 @@ import io from "socket.io-client";
 import { useState } from "react";
 import Chat from "./Chat";
 import './chat.css'
+import axios from "axios"; 
 
 const socket = io.connect("http://localhost:3001");
-
 
 export default function My_ChatWindow(){
 
@@ -20,6 +20,36 @@ export default function My_ChatWindow(){
       }
     };
 
+    const my_method= async () => {
+     
+    handle_Submittion()
+    joinRoom()
+
+    }
+
+
+    const handle_Submittion = async () => {
+      // event.preventDefault(); 
+    
+     if (username.length === null && room === null) {
+      alert("Wrong Credentials Entered");
+    }
+    else{
+      try {
+    
+          const response = await axios.post("http://localhost:3001/api/user/room_data", {
+          username,
+          room,
+          });
+    
+          console.log(response.data); 
+          
+      } catch (error) {
+          console.error("Error Entering User:", error);
+      }
+    }
+    };
+    
 
     return(
 
@@ -45,7 +75,7 @@ export default function My_ChatWindow(){
             }}
           />
          
-          <button onClick={joinRoom} className="bg-green-300 hover:bg-black hover:text-white w-48 p-4 rounded-lg border-2 border-black/30 font-bold text-lg ml-auto mr-auto">Join A Room</button>
+          <button onClick={my_method} className="bg-green-300 hover:bg-black hover:text-white w-48 p-4 rounded-lg border-2 border-black/30 font-bold text-lg ml-auto mr-auto">Join A Room</button>
           </div>
         
         </div>

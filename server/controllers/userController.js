@@ -1,7 +1,4 @@
-const User = require("../models/userModel");
-
-
-
+const { User, Room } = require("../models/userModel");
 
 exports.register = async (req, res) => {
   try {
@@ -15,6 +12,17 @@ exports.register = async (req, res) => {
   }
 };
 
+exports.enterRoom = async (req, res) => {
+  try {
+    const { username, room } = req.body;
+    const newRoomEntry = new Room({ username, room });
+    await newRoomEntry.save();
+    res.status(201).json({ message: "User Entered Room successfully" });
+  } catch (error) {
+    console.error("Error entering room:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 exports.getAllUsers = async (req, res) => {
   try {

@@ -6,6 +6,9 @@ import MyForm from "./encrypt_decrypt";
 // import Chat from "./Chat";
 import My_login from "./login";
 import My_registration from "./register";
+import { BrowserRouter, Routes, Route,Router } from "react-router-dom";
+
+ 
 
 
 // const socket = io.connect("http://localhost:3001");
@@ -22,7 +25,6 @@ function App() {
   //   }
   // };
 
-  return (
     // <div className="App">
     //   {!showChat ? (
     //     <div className="joinChatContainer">
@@ -51,19 +53,26 @@ function App() {
 
     /// --------------------- Login Form ---------------------------------//
    
-   <div className="my_home"> 
-    <My_login/> 
+    return (
+//  <My_login/> 
+//  <My_registration/> 
+//  <MyForm/>
+//  <My_ChatWindow/>  
 
-  {/* <My_registration/> */}
 
-{/* <MyForm/> */}
+ <div className="my_home"> 
+
+ <Route path="/login" component={My_login} exact />
+ <Route path="/" component={My_registration} exact />
+ <Route path="/chat_window" component={My_ChatWindow} exact />
+
+</div>
+
+            
+        );
+    }
 
 
-{/* <My_ChatWindow/> */}
 
-    </div>
-
-  );
-}
 
 export default App;
